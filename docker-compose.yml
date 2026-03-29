@@ -9,4 +9,6 @@ services:
       - "8002:8002"   # Stage 2 
       - "9004:9004"   # Stage 4 
       - "8004:8004"   # Stage 4 
+    volumes:
+      - ./stages/stage1/files:/srv/stage1:ro   # capture.pcap (generated)
     restart: unless-stopped

@@ -15,6 +15,8 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
+COPY stages/stage1/server.py stages/stage1/server.py
+
 # Stage 1: /srv/stage1  — bind-mounted at runtime (capture.pcap)
 # Stage 2: /srv/stage2  — bind-mounted at runtime (signal.png)
 # Stage 4: /srv/vuln    — compiled above; also served by stage4_files on 8004
