@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  deep_packet:
+    build: .
+    container_name: deep_packet
+    ports:
+      - "8001:8001"   # Stage 1 
+      - "8002:8002"   # Stage 2 
+      - "9004:9004"   # Stage 4 
+      - "8004:8004"   # Stage 4 
+    restart: unless-stopped

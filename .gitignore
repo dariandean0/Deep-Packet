@@ -1,0 +1,20 @@
+# Generated artifacts, produced by scripts/generate_all.sh
+stages/stage1/files/*.pcap
+stages/stage2/files/*.png
+stages/stage4/src/vuln
+stages/stage4/files/
+
+# Flag, never commit the real flag
+stages/stage4/flag.txt
+
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Misc
+*.swp
+.DS_Store
