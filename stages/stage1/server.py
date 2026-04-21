@@ -39,7 +39,6 @@ INDEX_HTML = """\
 </html>
 """
 
-
 class Handler(BaseHTTPRequestHandler):
     server_version = "Apache/2.4.51"
     sys_version = ""
@@ -52,9 +51,6 @@ class Handler(BaseHTTPRequestHandler):
             self._send(200, "text/html; charset = utf-8", INDEX_HTML.encode())
         elif self.path == "/capture.pcap":
             pcap_file = FILES_DIR / "capture.pcap"
-            if not pcap_file.exists():
-                self._send(503, "text/plain", b"Challenge artifact not yet generated.")
-                return
             data = pcap_file.read_bytes()
             self._send(200, "application/vnd.tcpdump.pcap", data,
                        extra_headers={"Content-Disposition": 'attachment; filename = "capture.pcap"'})
@@ -71,7 +67,6 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_header(k, v)
         self.end_headers()
         self.wfile.write(body)
-
 
 if __name__ == "__main__":
     print(f"[stage1] Listening on 0.0.0.0:{PORT}")

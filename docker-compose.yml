@@ -10,5 +10,6 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - ./stages/stage1/files:/srv/stage1:ro   # capture.pcap (generated)
+      - ./stages/stage1/files:/srv/stage1:ro   # capture.pcap
+      - ./stages/stage2/files:/srv/stage2:ro   # signal.png
     restart: unless-stopped
