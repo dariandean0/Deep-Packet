@@ -37,6 +37,10 @@ echo ""
 echo "[Stage 1] Generating capture.pcap..."
 python3 "${SCRIPT_DIR}/gen_pcap.py"
 
+# Stage 2: Generate signal.png
+echo ""
+echo "[Stage 2] Generating signal.png..."
+python3 "${SCRIPT_DIR}/gen_img.py"
 
 # Summary
 echo ""
@@ -45,6 +49,7 @@ echo "  Generation complete. Artifact summary:"
 echo "================================================================"
 echo ""
 ls -lh "${ROOT}/stages/stage1/files/" 2>/dev/null || true
+ls -lh "${ROOT}/stages/stage2/files/" 2>/dev/null || true
 echo ""
 echo "  Next step: docker compose up --build"
 echo ""

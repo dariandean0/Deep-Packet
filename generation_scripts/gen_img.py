@@ -14,8 +14,9 @@ def vigenere_encrypt(pt, key):
             result.append(ch)
     return ''.join(result)
 
-KEY       = "DEEPPACKET"
-PLAINTEXT = "HTTP://STAGE4:8004/VULN"
+import os
+KEY       = os.environ.get("VIGENERE_KEY", "DEEPPACKET")
+PLAINTEXT = os.environ.get("PLAINTEXT_SECRET", "HTTP://STAGE3:8003/")
 ciphertext = vigenere_encrypt(PLAINTEXT, KEY)
 payload    = f"CIPHER:VIGENERE CIPHERTEXT:{ciphertext}"
 print(f"Ciphertext : {ciphertext}")
