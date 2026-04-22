@@ -32,9 +32,12 @@ RUN apt-get update && apt-get install -y \
     && gem install zsteg --no-document \
     && pip3 install --no-cache-dir Pillow
 
+# Stage 3 — SQL injection (sqlite3 is part of the Python stdlib, no extra deps)
+
 # Stage server files live under /opt/ctf — not visible in the player's workdir
 COPY stages/stage1/server.py /opt/ctf/stages/stage1/server.py
 COPY stages/stage2/server.py /opt/ctf/stages/stage2/server.py
+COPY stages/stage3/server.py /opt/ctf/stages/stage3/server.py
 
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 COPY entrypoint.sh /entrypoint.sh
@@ -44,6 +47,6 @@ WORKDIR /work
 # Stage 1: /srv/stage1  — bind-mounted at runtime (capture.pcap)
 # Stage 2: /srv/stage2  — bind-mounted at runtime (signal.png)
 # Stage 4: /srv/vuln    — compiled above; also served by stage4_files on 8004
-EXPOSE 8001 8002 9004 8004
+EXPOSE 8001 8002 8003 9004 8004
 
 CMD ["/entrypoint.sh"]
