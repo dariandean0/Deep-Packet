@@ -14,9 +14,9 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs
 
-DB_PATH  = "/tmp/stage3.db"
-PORT     = 8003
-VULN_BIN = Path("/srv/stage4/vuln")
+DB_PATH = "/tmp/stage3.db"
+PORT = 8003
+VULN_BIN = Path("/opt/ctf/stages/stage4/vuln")
 
 # Database 
 def init_db():
@@ -211,7 +211,7 @@ LOGIN_HTML_OK = LOGIN_HTML.replace("{error_block}", "")
 # Request handler
 class Handler(BaseHTTPRequestHandler):
     server_version = "Apache/2.4.51"
-    sys_version    = ""
+    sys_version = ""
 
     def log_message(self, fmt, *args):
         print(f"[stage3] {self.address_string()} - {fmt % args}")
@@ -220,7 +220,6 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path == "/":
             self._send(200, "text/html; charset=utf-8", LOGIN_HTML_OK.encode())
-
         elif self.path == "/download/vuln":
             if not VULN_BIN.exists():
                 self._send(503, "text/plain", b"Binary not yet available.")
@@ -228,11 +227,10 @@ class Handler(BaseHTTPRequestHandler):
             data = VULN_BIN.read_bytes()
             self._send(
                 200, "application/octet-stream", data,
-                extra_headers={
+                extra_headers = {
                     "Content-Disposition": 'attachment; filename="vuln"',
                 },
             )
-
         else:
             self._send(404, "text/plain", b"Not Found")
 
@@ -243,13 +241,13 @@ class Handler(BaseHTTPRequestHandler):
             return
 
         length = int(self.headers.get("Content-Length", 0))
-        body   = self.rfile.read(length).decode(errors="replace")
+        body = self.rfile.read(length).decode(errors = "replace")
         params = parse_qs(body)
 
         username = params.get("username", [""])[0]
         password = params.get("password", [""])[0]
 
-        print(f"[stage3] login attempt — username={username!r}")
+        print(f"[stage3] login attempt - username={username!r}")
 
         if check_login(username, password):
             print(f"[stage3] login SUCCESS for username={username!r}")

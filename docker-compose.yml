@@ -3,14 +3,12 @@ services:
     build: .
     container_name: deep_packet
     ports:
-      - "8001:8001"   # Stage 1
-      - "8002:8002"   # Stage 2
-      - "8003:8003"   # Stage 3
-      - "9004:9004"   # Stage 4
-      - "8004:8004"   # Stage 4
-    stdin_open: true
-    tty: true
+      - "8001:8001"  # Stage 1
+      - "8002:8002"  # Stage 2
+      - "8003:8003"  # Stage 3
+      - "9004:9004"  # Stage 4
+    env_file: .env
     volumes:
-      - ./stages/stage1/files:/srv/stage1:ro   # capture.pcap
-      - ./stages/stage2/files:/srv/stage2:ro   # signal.png
-    restart: unless-stopped
+      - ./stages/stage1/files:/srv/stage1:ro  # capture.pcap
+      - ./stages/stage2/files:/srv/stage2:ro  # signal.png
+      - ./stages/stage4/files:/srv/stage4:ro  # flag.txt (binary lives in image)
