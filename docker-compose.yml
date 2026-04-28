@@ -11,4 +11,4 @@ services:
     volumes:
       - ./stages/stage1/files:/srv/stage1:ro  # capture.pcap
       - ./stages/stage2/files:/srv/stage2:ro  # signal.png
-      - ./stages/stage4/files:/srv/stage4:ro  # flag.txt (binary lives in image)
+      - ./stages/stage4/files:/srv/stage4:ro  # flag.txt

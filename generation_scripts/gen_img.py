@@ -15,18 +15,18 @@ def vigenere_encrypt(pt, key):
     return ''.join(result)
 
 import os
-KEY       = os.environ.get("VIGENERE_KEY", "DEEPPACKET")
+KEY = os.environ.get("VIGENERE_KEY", "DEEPPACKET")
 PLAINTEXT = os.environ.get("PLAINTEXT_SECRET", "HTTP://STAGE3:8003/")
 ciphertext = vigenere_encrypt(PLAINTEXT, KEY)
-payload    = f"CIPHER:VIGENERE CIPHERTEXT:{ciphertext}"
+payload = f"CIPHER:VIGENERE CIPHERTEXT:{ciphertext}"
 print(f"Ciphertext : {ciphertext}")
 print(f"Payload    : {payload}")
 
 # Rebuild the same spectrogram image (same seed)
-np.random.seed(42)
+np.random.seed(10)
 W, H = 512, 256
-img = np.zeros((H, W, 3), dtype=np.uint8)
-noise = np.random.randint(5, 25, (H, W), dtype=np.uint8)
+img = np.zeros((H, W, 3), dtype = np.uint8)
+noise = np.random.randint(5, 25, (H, W), dtype = np.uint8)
 img[:, :, 0] = noise // 2
 img[:, :, 1] = noise // 3
 img[:, :, 2] = noise
@@ -60,9 +60,9 @@ img[:, :, 0] = flat_r.reshape(H, W)
 # Save with updated Artist metadata
 png_meta = PngInfo()
 png_meta.add_text("Artist", KEY)
-png_meta.add_text("Comment", "SIGINT capture — 03:47 UTC")
+png_meta.add_text("Comment", "SIGINT capture - 03:47 UTC")
 out_path = "/home/dariand/florida_tech/courses/cyber/projects/Deep-Packet/stages/stage2/files/signal.png"
-Image.fromarray(img, 'RGB').save(out_path, pnginfo=png_meta)
+Image.fromarray(img, 'RGB').save(out_path, pnginfo = png_meta)
 
 # Verify
 img_check = np.array(Image.open(out_path))
@@ -76,5 +76,6 @@ for i in range(0, len(recovered_bits), 8):
     if byte == 0:
         break
     recovered_bytes.append(byte)
+    
 print(f"Verified   : {recovered_bytes.decode('ascii')}")
 print(f"Artist tag : {Image.open(out_path).info.get('Artist')}")

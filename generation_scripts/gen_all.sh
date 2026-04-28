@@ -21,15 +21,15 @@ source "${ENV_FILE}"
 set +a
 
 echo "================================================================"
-echo "  DEEP PACKET — CTF Challenge Generation"
+echo "  DEEP PACKET - CTF Challenge Generation"
 echo "================================================================"
 echo ""
 
 # Check Python dependencies
 echo "[*] Checking Python dependencies..."
-python3 -c "import scapy"   2>/dev/null || { echo "ERROR: scapy missing — pip install scapy"; exit 1; }
-python3 -c "import PIL"     2>/dev/null || { echo "ERROR: Pillow missing — pip install Pillow"; exit 1; }
-python3 -c "import numpy"   2>/dev/null || { echo "ERROR: numpy missing — pip install numpy"; exit 1; }
+python3 -c "import scapy"   2>/dev/null || { echo "ERROR: scapy missing - pip install scapy"; exit 1; }
+python3 -c "import PIL"     2>/dev/null || { echo "ERROR: Pillow missing - pip install Pillow"; exit 1; }
+python3 -c "import numpy"   2>/dev/null || { echo "ERROR: numpy missing - pip install numpy"; exit 1; }
 echo "[+] Python dependencies OK"
 
 # Stage 1: Generate capture.pcap

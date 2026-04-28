@@ -2,7 +2,7 @@
  * Stage 4 - Binary Diagnostic Service
  *
  * Vulnerability : stack buffer overflow via gets() in vuln()
- * Target        : overwrite saved EIP with address of win()
+ * Target : overwrite saved EIP with address of win()
  */
 
 #include <stdio.h>
@@ -39,7 +39,7 @@ void win(void) {
 
 /* Vulnerable function */
 void vuln(void) {
-    char buf[64];   /* intentionally undersized */
+    char buf[64];
 
     puts("Enter diagnostic string:");
     fflush(stdout);

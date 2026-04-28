@@ -60,10 +60,10 @@ COPY bashrc /root/.bashrc
 
 WORKDIR /work
 
-# Stage 1: /srv/stage1          - bind-mounted at runtime (capture.pcap)
-# Stage 2: /srv/stage2          - bind-mounted at runtime (signal.png)
+# Stage 1: /srv/stage1 - bind-mounted at runtime (capture.pcap)
+# Stage 2: /srv/stage2 - bind-mounted at runtime (signal.png)
 # Stage 4: /opt/ctf/stages/stage4/vuln - compiled above (binary stays in image)
-#           /srv/stage4          - bind-mounted at runtime (flag.txt)
+#           /srv/stage4 - bind-mounted at runtime (flag.txt)
 EXPOSE 8001 8002 8003 9004
 
 CMD ["/entrypoint.sh"]

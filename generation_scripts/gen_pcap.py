@@ -21,7 +21,6 @@ try:
 except ImportError:
     sys.exit("ERROR: scapy not installed. Run: pip install scapy")
 
-
 # Configuration from environment (set by generate_all.sh sourcing .env)
 STAGE2_HOST = os.environ.get("STAGE2_HOST", "stage2")
 STAGE2_PORT = os.environ.get("STAGE2_PORT", "8002")
@@ -75,15 +74,15 @@ res_bytes = http_response.encode()
 
 packets = [
     # 3-way handshake
-    pkt(CLIENT_IP, SERVER_IP, CLIENT_PORT, SERVER_PORT, "S",  seq = 1000,           ack = 0),
-    pkt(SERVER_IP, CLIENT_IP, SERVER_PORT, CLIENT_PORT, "SA", seq = 5000,           ack = 1001),
-    pkt(CLIENT_IP, SERVER_IP, CLIENT_PORT, SERVER_PORT, "A",  seq = 1001,           ack = 5001),
+    pkt(CLIENT_IP, SERVER_IP, CLIENT_PORT, SERVER_PORT, "S",  seq = 1000, ack = 0),
+    pkt(SERVER_IP, CLIENT_IP, SERVER_PORT, CLIENT_PORT, "SA", seq = 5000, ack = 1001),
+    pkt(CLIENT_IP, SERVER_IP, CLIENT_PORT, SERVER_PORT, "A",  seq = 1001, ack = 5001),
     # HTTP POST (client --> server)
-    pkt(CLIENT_IP, SERVER_IP, CLIENT_PORT, SERVER_PORT, "PA", seq = 1001,           ack = 5001, payload = req_bytes),
+    pkt(CLIENT_IP, SERVER_IP, CLIENT_PORT, SERVER_PORT, "PA", seq = 1001, ack = 5001, payload = req_bytes),
     # Server ACKs the request
-    pkt(SERVER_IP, CLIENT_IP, SERVER_PORT, CLIENT_PORT, "A",  seq = 5001,           ack = 1001 + len(req_bytes)),
+    pkt(SERVER_IP, CLIENT_IP, SERVER_PORT, CLIENT_PORT, "A",  seq = 5001, ack = 1001 + len(req_bytes)),
     # HTTP 200 response (server --> client)
-    pkt(SERVER_IP, CLIENT_IP, SERVER_PORT, CLIENT_PORT, "PA", seq = 5001,           ack = 1001 + len(req_bytes), payload = res_bytes),
+    pkt(SERVER_IP, CLIENT_IP, SERVER_PORT, CLIENT_PORT, "PA", seq = 5001, ack = 1001 + len(req_bytes), payload = res_bytes),
     # Client ACKs response
     pkt(CLIENT_IP, SERVER_IP, CLIENT_PORT, SERVER_PORT, "A",  seq = 1001 + len(req_bytes), ack = 5001 + len(res_bytes)),
     # Teardown
